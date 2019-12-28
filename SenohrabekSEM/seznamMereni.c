@@ -22,15 +22,15 @@ const int COLUMNS = 24;
 tSeznamMereni* seznamMereni;
 float** array;
 
-const char* getfield(char* line, int num); //Slouí pro získání sloupce.
-const int* compareTo(tDateTime date1, tMereni* mereni); //Slouí pro porovnání dat;
+const char* getfield(char* line, int num); //SlouÅ¾Ã­ pro zÃ­skÃ¡nÃ­ sloupce.
+const int* compareTo(tDateTime date1, tMereni* mereni); //SlouÅ¾Ã­ pro porovnÃ¡nÃ­ dat;
 
-// vrací pole id všech senzorù v souboru
+// vracÃ­ pole id vÅ¡ech senzorÃ¹ v souboru
 int* dejPoleIdSenzoru()
 {
 	FILE* file = fopen(FILE_NAME, "r");
 	int sizeOfArray = 10, iterations = 0, countOfId = 0, currID = 0;
-	int* arrayOfId = (int)malloc(sizeOfArray * sizeof(int));
+	int* arrayOfId = malloc(sizeOfArray * sizeof(int));
 	char line[1024];
 	while (fgets(line, MAX_COUNT, file))
 	{
@@ -70,7 +70,7 @@ int* dejPoleIdSenzoru()
 	return arrayOfId;
 }
 
-// naète všechna mìøení daného senzoru, vyuívá vytvorMereni, pokud ji nìjakı seznam existuje, musí bıt dealokován
+// naÃ¨te vÅ¡echna mÃ¬Ã¸enÃ­ danÃ©ho senzoru, vyuÅ¾Ã­vÃ¡ vytvorMereni, pokud jiÅ¾ nÃ¬jakÃ½ seznam existuje, musÃ­ bÃ½t dealokovÃ¡n
 tSeznamMereni* nactiMereni(int idSenzoru)
 {
 	dealokujSeznam();
@@ -127,7 +127,7 @@ tSeznamMereni* nactiMereni(int idSenzoru)
 	}
 }
 
-// odebere a vrátí poadované mìøení ze seznamu
+// odebere a vrÃ¡tÃ­ poÅ¾adovanÃ© mÃ¬Ã¸enÃ­ ze seznamu
 tMereni* odeberMereni(tDateTime timestamp)
 {
 	tMereni* mereni = NULL;
@@ -171,7 +171,7 @@ tMereni* odeberMereni(tDateTime timestamp)
 }
 
 
-// sma (dealokuj) všechny záznamy a
+// smaÅ¾ (dealokuj) vÅ¡echny zÃ¡znamy a
 void dealokujSeznam()
 {
 	int run = 0;
@@ -213,7 +213,7 @@ void dealokujSeznam()
 	}
 }
 
-// Vıpoèet prùmìru pro všechny kombinace den v tıdnu, kterı vrátí dynamické 2D pole 7x24 „den v tıdnu“ x „hodina dne“ (v litrech)
+// VÃ½poÃ¨et prÃ¹mÃ¬ru pro vÅ¡echny kombinace den v tÃ½dnu, kterÃ½ vrÃ¡tÃ­ dynamickÃ© 2D pole 7x24 â€den v tÃ½dnuâ€œ x â€hodina dneâ€œ (v litrech)
 float** analyzuj(tDateTime datumOd, tDateTime datumDo)
 {
 	int i, y;
@@ -269,7 +269,7 @@ float** analyzuj(tDateTime datumOd, tDateTime datumDo)
 	return array;
 }
 
-// sma (dealokuj) matici
+// smaÅ¾ (dealokuj) matici
 void dealokujMatici()
 {
 	if (array != NULL) {
@@ -279,7 +279,7 @@ void dealokujMatici()
 	}
 }
 
-//vrátí odchylku v litrech daného záznamu (mìøení v dle timestamp) oproti správnému prùmìru z matice prùmìrù
+//vrÃ¡tÃ­ odchylku v litrech danÃ©ho zÃ¡znamu (mÃ¬Ã¸enÃ­ v dle timestamp) oproti sprÃ¡vnÃ©mu prÃ¹mÃ¬ru z matice prÃ¹mÃ¬rÃ¹
 float dejOdchylku(tDateTime timestamp)
 {
 	int run = 0;
@@ -307,10 +307,10 @@ float dejOdchylku(tDateTime timestamp)
 	return 0;
 }
 
-//Porovnávání data
-//return  1 -> Date1 je starší ne date2
-//return  0 -> Data jsou schodná
-//return -1 -> Date2 je starší ne date1. 
+//PorovnÃ¡vÃ¡nÃ­ data
+//return  1 -> Date1 je starÅ¡Ã­ neÅ¾ date2
+//return  0 -> Data jsou schodnÃ¡
+//return -1 -> Date2 je starÅ¡Ã­ neÅ¾ date1. 
 const int* compareTo(tDateTime date1, tMereni* mereni) {
 	if (date1.year > mereni->timestamp.year) {
 		return -1;
@@ -365,7 +365,7 @@ const int* compareTo(tDateTime date1, tMereni* mereni) {
 	return 911;
 }
 
-//Slouí pro dej pole ID senzorù
+//SlouÅ¾Ã­ pro dej pole ID senzorÃ¹
 const char* getfield(char* line, int num)
 {
 	const char* tok;
